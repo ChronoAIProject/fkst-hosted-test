@@ -1,0 +1,6 @@
+kind = "package"
+name = "coding-agent"
+persistence_class = "stateless_adapter"
+
+[code]
+root = "."
