@@ -1,6 +1,0 @@
-kind = "package"
-name = "site-builder"
-persistence_class = "stateless_adapter"
-
-[code]
-root = "."
