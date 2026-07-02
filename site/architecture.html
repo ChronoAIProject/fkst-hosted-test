@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Architecture — fkst</title>
+    <meta name="description" content="How fkst turns a GitHub issue into a pull request: the Lua substrate engine, the package library, and the Kubernetes control plane that runs one hard-isolated pod per session.">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/architecture.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+  </head>
+  <body class="page-architecture" data-nav="architecture">
+    <div id="site-header"></div>
+
+    <main id="main" class="container">
+      <section class="arch-hero" aria-labelledby="hero-h">
+        <p class="arch-eyebrow">Architecture</p>
+        <h1 id="hero-h">One GitHub issue in, one pull request out — safely, concurrently.</h1>
+        <p class="arch-lede">fkst is an autonomous software-engineering platform. You file a GitHub issue; an isolated agent claims it, writes the code with an LLM, and opens a pull request. Three parts make that happen: a Lua engine that runs the work, a library of packages that define the work, and a cloud control plane that runs each job in its own hard-isolated Kubernetes pod. GitHub is the only durable state.</p>
+      </section>
+
+      <section class="arch-section" aria-labelledby="planes-h">
+        <h2 id="planes-h">Three planes.</h2>
+        <ul class="grid arch-planes" role="list">
+          <li class="card arch-plane">
+            <h3>fkst-substrate — the engine</h3>
+            <p class="arch-role">Lua, event-driven.</p>
+            <p>A Lua-based engine that runs packages as event-driven <strong>departments</strong> on a supervise loop. It reacts to events, drives each package's steps, and keeps the loop alive for the length of a session.</p>
+          </li>
+          <li class="card arch-plane">
+            <h3>fkst-packages — the work</h3>
+            <p class="arch-role">The package library.</p>
+            <p>The reusable units of behavior. <code>github-devloop</code> turns a GitHub issue into a pull request using the codex LLM agent; <code>github-proxy</code> polls GitHub for events; plus <code>consensus</code> and <code>intake</code>/<code>decompose</code>/<code>pr</code>/<code>integration</code> helpers that compose into a full delivery pipeline.</p>
+          </li>
+          <li class="card arch-plane">
+            <h3>fkst-hosted — the control plane</h3>
+            <p class="arch-role">Rust · Axum · Kubernetes.</p>
+            <p>The cloud service. When a repo has the fkst GitHub App installed, it reconciles open <strong>trigger</strong> issues and spawns exactly <strong>one hard-isolated pod per session</strong> running the substrate loop. It spawns and kills pods, rotates each pod's GitHub token, and serves a named-environments API.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section class="arch-section" aria-labelledby="diagram-h">
+        <h2 id="diagram-h">Issue to pull request.</h2>
+        <figure class="arch-diagram">
+          <svg viewBox="0 0 1000 420" width="100%" height="auto" role="img" aria-labelledby="arch-svg-title arch-svg-desc" focusable="false">
+            <title id="arch-svg-title">fkst issue-to-pull-request architecture flow</title>
+            <desc id="arch-svg-desc">A GitHub issue with a trigger label is read by the fkst hosted control plane reconciler. The control plane starts one hard-isolated pod running the substrate loop. That pod invokes codex as the LLM agent, and codex produces a pull request. GitHub remains the only durable state for the queue, claims, and output. The control plane also rotates the pod's short-lived GitHub token before expiry while isolation prevents cluster API access, constrains egress with NetworkPolicy, and drops capabilities.</desc>
+            <defs>
+              <marker id="arch-arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+                <path class="arch-edge-marker" d="M2,2 L10,6 L2,10 Z"></path>
+              </marker>
+            </defs>
+
+            <rect class="arch-band" x="20" y="28" width="960" height="72" rx="18"></rect>
+            <text class="arch-band-text" x="500" y="58" text-anchor="middle">GitHub — the only durable state</text>
+            <text class="arch-band-subtext" x="500" y="82" text-anchor="middle">issues = queue · labels = claims · PRs = output</text>
+            <path class="arch-connector" d="M100 100 L100 174"></path>
+            <path class="arch-connector" d="M900 100 L900 174"></path>
+
+            <path class="arch-edge" d="M180 225 L220 225" marker-end="url(#arch-arrow)"></path>
+            <path class="arch-edge" d="M380 225 L420 225" marker-end="url(#arch-arrow)"></path>
+            <path class="arch-edge" d="M580 225 L620 225" marker-end="url(#arch-arrow)"></path>
+            <path class="arch-edge" d="M780 225 L820 225" marker-end="url(#arch-arrow)"></path>
+
+            <path class="arch-edge arch-edge--rotate" d="M306 176 C360 126 480 126 536 176" marker-end="url(#arch-arrow)"></path>
+            <text class="arch-caption" x="420" y="130" text-anchor="middle">rotates short-lived GitHub token</text>
+
+            <g>
+              <rect class="arch-node" x="20" y="180" width="160" height="90" rx="16"></rect>
+              <text class="arch-node-title" x="100" y="218" text-anchor="middle">GitHub Issue</text>
+              <text class="arch-node-subtitle" x="100" y="244" text-anchor="middle">trigger label</text>
+            </g>
+            <g>
+              <rect class="arch-node" x="220" y="180" width="160" height="90" rx="16"></rect>
+              <text class="arch-node-title" x="300" y="218" text-anchor="middle">Control Plane</text>
+              <text class="arch-node-subtitle" x="300" y="244" text-anchor="middle">reconciler · Rust/Axum</text>
+            </g>
+            <g>
+              <rect class="arch-node arch-node--pod" x="420" y="180" width="160" height="90" rx="16"></rect>
+              <text class="arch-node-title" x="500" y="218" text-anchor="middle">Isolated Pod</text>
+              <text class="arch-node-subtitle" x="500" y="244" text-anchor="middle">substrate loop</text>
+              <text class="arch-caption" x="500" y="306" text-anchor="middle">no cluster API · NetworkPolicy · dropped caps</text>
+            </g>
+            <g>
+              <rect class="arch-node" x="620" y="180" width="160" height="90" rx="16"></rect>
+              <text class="arch-node-title" x="700" y="218" text-anchor="middle">codex</text>
+              <text class="arch-node-subtitle" x="700" y="244" text-anchor="middle">LLM agent</text>
+            </g>
+            <g>
+              <rect class="arch-node arch-node--pr" x="820" y="180" width="160" height="90" rx="16"></rect>
+              <text class="arch-node-title" x="900" y="218" text-anchor="middle">Pull Request</text>
+              <text class="arch-node-subtitle" x="900" y="244" text-anchor="middle">the output</text>
+            </g>
+          </svg>
+          <figcaption>GitHub issue → control plane reconciler → one isolated pod → codex → pull request. The control plane rotates the pod's short-lived GitHub token; GitHub holds all durable state.</figcaption>
+        </figure>
+      </section>
+
+      <section class="arch-section" aria-labelledby="iso-h">
+        <h2 id="iso-h">Pod-per-session, hard isolation.</h2>
+        <p>Each delivery session runs in its own pod so concurrent work can proceed without sharing process, filesystem, or identity boundaries. The hosted control plane owns pod lifecycle; the agent owns only the repository work inside its session.</p>
+        <ul class="arch-guards" role="list">
+          <li><strong>One pod per session</strong><span>no shared uid, filesystem, or PID namespace</span></li>
+          <li><strong>No cluster access</strong><span>no Kubernetes API and no mounted service account token</span></li>
+          <li><strong>NetworkPolicy egress</strong><span>only GitHub and the LLM endpoint</span></li>
+          <li><strong>Dropped capabilities</strong><span>least privilege inside the workload container</span></li>
+          <li><strong>Run-to-completion + TTL GC</strong><span>pods are stopped and collected after completion or timeout</span></li>
+        </ul>
+      </section>
+
+      <section class="arch-section" aria-labelledby="state-h">
+        <h2 id="state-h">GitHub is the only durable state.</h2>
+        <p>There is no database behind the delivery loop. Durable state stays where the work already lives, so queue position, ownership, and output are visible through normal GitHub objects.</p>
+        <dl class="arch-state">
+          <div>
+            <dt>Issues</dt>
+            <dd>the queue</dd>
+          </div>
+          <div>
+            <dt>Labels</dt>
+            <dd>the claim</dd>
+          </div>
+          <div>
+            <dt>Pull requests</dt>
+            <dd>the output</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="arch-section" aria-labelledby="loop-h">
+        <h2 id="loop-h">The reconciler loop.</h2>
+        <ol class="arch-steps">
+          <li>Poll installed repositories for open trigger issues.</li>
+          <li>Claim one issue by applying the ownership label.</li>
+          <li>Spawn one pod with a short-lived GitHub App token.</li>
+          <li>The pod runs the substrate loop; codex writes the change and opens a pull request.</li>
+          <li><strong>Rotate the token before expiry.</strong></li>
+          <li>On completion or stop, kill the pod and let TTL garbage collection remove it.</li>
+        </ol>
+        <p class="arch-note">Token rotation keeps hard isolation and long sessions compatible: a pod never needs durable credentials, but the control plane can keep an authorized session alive long enough to finish real work.</p>
+      </section>
+
+      <section class="arch-related" aria-labelledby="related-h">
+        <h2 id="related-h" class="visually-hidden">Related pages</h2>
+        <nav class="grid" aria-label="Related pages">
+          <a class="card arch-related-card" href="packages.html">The package library →</a>
+          <a class="card arch-related-card" href="index.html">Back to overview →</a>
+        </nav>
+      </section>
+    </main>
+
+    <div id="site-footer"></div>
+    <script src="js/layout.js"></script>
+    <script src="js/theme.js"></script>
+  </body>
+</html>
