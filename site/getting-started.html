@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Getting Started | fkst</title>
+    <meta
+      name="description"
+      content="Install the fkst GitHub App, open a trigger issue, file labelled work, and review the pull requests that come back."
+    >
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/code.css">
+    <link rel="stylesheet" href="css/getting-started.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+    <script src="js/layout.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/copy-code.js" defer></script>
+  </head>
+  <body data-nav="getting-started">
+    <div id="site-header"></div>
+    <main id="main" class="wrap gs">
+      <section class="gs-hero" aria-labelledby="getting-started-title">
+        <p class="eyebrow">Getting started</p>
+        <h1 id="getting-started-title">From a GitHub issue to a pull request, in four steps</h1>
+        <p class="lede">
+          Install the fkst GitHub App on a repository, open one <code>fkst-substrate-trigger</code> issue
+          that names the packages to run and a work label, then file work issues under that label.
+          fkst spawns one hard-isolated pod per session, an LLM agent writes the code, and you get
+          pull requests back to review and merge. GitHub is the only state: issues are the queue,
+          labels are the claims, PRs are the output.
+        </p>
+      </section>
+
+      <section aria-labelledby="prerequisites-title">
+        <h2 id="prerequisites-title">Prerequisites</h2>
+        <ul class="gs-prereq">
+          <li>Admin access on the GitHub repository where fkst should work.</li>
+          <li>The fkst GitHub App installation URL from your operator.</li>
+          <li>One or more public package refs in the form <code>owner/repo@ref:path</code>.</li>
+          <li>Each package path contains an <code>fkst.toml</code> file.</li>
+          <li>An LLM endpoint configured by the operator; do not put keys in the issue.</li>
+        </ul>
+      </section>
+
+      <section aria-labelledby="walkthrough-title">
+        <h2 id="walkthrough-title">Walkthrough</h2>
+        <ol class="steps">
+          <li>
+            <h3>Install the GitHub App</h3>
+            <p>
+              Install the app on the repository where you want fkst to create pull requests. The app
+              needs Issues read/write, Pull requests read/write, and Contents read/write so the control
+              plane can reconcile that repository's trigger issues.
+            </p>
+            <!-- TODO operator install URL -->
+            <a class="btn btn-primary" href="{{INSTALL_URL}}">Install the fkst App</a>
+          </li>
+          <li>
+            <h3>Open the trigger issue</h3>
+            <p>
+              Create an issue labelled <code>fkst-substrate-trigger</code>. Its body must contain four
+              <code>###</code> sections: <code>### Session Name</code> with one DNS-1123 label matching
+              <code>^[a-z0-9]([a-z0-9-]*[a-z0-9])?$</code> and 1-40 characters;
+              <code>### Packages</code> with one public <code>owner/repo@ref:path</code> ref per line,
+              each containing <code>fkst.toml</code>; <code>### Work Label</code> with exactly one
+              comma-free label up to 50 characters; and optional <code>### Environment</code> with a
+              named environment.
+            </p>
+            <div class="code" data-lang="markdown">
+              <pre><code>### Session Name
+devloop-demo
+
+### Packages
+ChronoAIProject/fkst-packages@dev:packages/github-devloop
+
+### Work Label
+agent-build
+
+### Environment
+node20</code></pre>
+            </div>
+            <p>A package ref follows this shape:</p>
+            <div class="code" data-lang="text">
+              <pre><code>owner/repo@ref:path/to/package</code></pre>
+            </div>
+          </li>
+          <li>
+            <h3>File work issues under the label</h3>
+            <p>
+              Every open issue with the work label is claimable. The session stays alive while at least
+              one open labelled issue exists, idle-stops when the queue empties, and runs labelled issues
+              concurrently.
+            </p>
+            <div class="code" data-lang="markdown">
+              <pre><code>Title: Add /healthz endpoint
+Labels: agent-build
+
+Body:
+Add a /healthz endpoint that returns HTTP 200 with:
+
+{"status":"ok"}
+
+Include a test that verifies the status code and response body.</code></pre>
+            </div>
+            <p>Use multiple package refs when a session needs more than one package:</p>
+            <div class="code" data-lang="markdown">
+              <pre><code>### Session Name
+devloop-demo
+
+### Packages
+ChronoAIProject/fkst-packages@dev:packages/github-devloop
+ChronoAIProject/fkst-packages@dev:packages/site
+
+### Work Label
+agent-build
+
+### Environment
+node20</code></pre>
+            </div>
+          </li>
+          <li>
+            <h3>Review and merge the PRs</h3>
+            <p>
+              The agent opens a pull request per issue. fkst manages lifecycle labels
+              <code>fkst-running</code>, <code>fkst-completed</code>, <code>fkst-terminated</code>, and
+              <code>fkst-failed</code> on the trigger issue, and comments on malformed input.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="troubleshooting-title">
+        <h2 id="troubleshooting-title">Troubleshooting</h2>
+        <dl class="tshoot">
+          <dt><code>fkst couldn't parse this trigger issue: ...</code></dt>
+          <dd>A <code>###</code> section is missing, duplicated, or malformed. Fix the four headings.</dd>
+          <dt><code>one or more ### Packages refs are not reachable on public GitHub</code></dt>
+          <dd>Check for a bad ref, private repository, or package path missing <code>fkst.toml</code>.</dd>
+          <dt><code>Invalid session name</code></dt>
+          <dd>Use a DNS-1123 label matching <code>^[a-z0-9]([a-z0-9-]*[a-z0-9])?$</code>, 1-40 characters.</dd>
+          <dt><code>Work label rejected</code></dt>
+          <dd>Use exactly one line, keep it at 50 characters or fewer, and do not include a comma.</dd>
+          <dt><code>Nothing happens</code></dt>
+          <dd>Confirm the App is installed, the trigger issue has <code>fkst-substrate-trigger</code>, and at least one open issue carries the work label.</dd>
+          <dt><code>Environment not found</code></dt>
+          <dd>Create it first via <code>PUT /api/v1/users/me/environments/{name}</code> or omit the section.</dd>
+        </dl>
+      </section>
+
+      <nav class="next-steps" aria-labelledby="next-steps-title">
+        <h2 id="next-steps-title">Next steps</h2>
+        <a href="packages.html">Browse packages</a>
+        <a href="architecture.html">Read the architecture</a>
+        <a href="index.html">Return home</a>
+      </nav>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

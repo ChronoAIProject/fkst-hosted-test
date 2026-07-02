@@ -1,0 +1,160 @@
+.gs {
+  --gs-prose: 68ch;
+  padding-block: var(--space-8, 4rem);
+}
+
+.gs > * {
+  max-width: var(--gs-prose);
+}
+
+.gs .gs-hero {
+  margin-block-end: var(--space-7, 3rem);
+}
+
+.gs .eyebrow {
+  color: var(--amber, #b7791f);
+  font-size: var(--step--1, 0.875rem);
+  font-weight: 700;
+  letter-spacing: 0;
+  margin: 0 0 var(--space-2, 0.75rem);
+  text-transform: uppercase;
+}
+
+.gs h1,
+.gs h2,
+.gs h3 {
+  color: var(--text, #111827);
+  letter-spacing: 0;
+  line-height: 1.15;
+}
+
+.gs h1 {
+  font-size: var(--step-4, 3rem);
+  margin: 0;
+  max-width: 12ch;
+}
+
+.gs h2 {
+  font-size: var(--step-2, 1.75rem);
+  margin: var(--space-7, 3rem) 0 var(--space-3, 1rem);
+}
+
+.gs h3 {
+  font-size: var(--step-1, 1.25rem);
+  margin: 0 0 var(--space-2, 0.75rem);
+}
+
+.gs p,
+.gs li,
+.gs dd {
+  color: var(--text-muted, #4b5563);
+  line-height: 1.7;
+}
+
+.gs .lede {
+  color: var(--text, #111827);
+  font-size: var(--step-1, 1.25rem);
+  margin-block: var(--space-4, 1.5rem) 0;
+}
+
+.gs .gs-prereq {
+  display: grid;
+  gap: var(--space-3, 1rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gs .gs-prereq li {
+  border: 1px solid var(--border, #d1d5db);
+  border-radius: var(--radius-sm, 0.5rem);
+  padding: var(--space-3, 1rem);
+}
+
+.gs .steps {
+  counter-reset: step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.gs .steps > li {
+  counter-increment: step;
+  display: grid;
+  gap: 0 var(--space-4, 1.5rem);
+  grid-template-columns: 3rem minmax(0, 1fr);
+  margin-block: 0 var(--space-6, 2.5rem);
+}
+
+.gs .steps > li::before {
+  align-items: center;
+  background: color-mix(in oklab, var(--amber, #b7791f) 16%, transparent);
+  border-radius: 50%;
+  color: var(--amber, #b7791f);
+  content: counter(step);
+  display: inline-flex;
+  font-weight: 800;
+  height: 2.5rem;
+  justify-content: center;
+  line-height: 1;
+  width: 2.5rem;
+}
+
+.gs .steps > li > * {
+  grid-column: 2;
+}
+
+.gs .steps > li::before,
+.gs .steps > li > h3 {
+  grid-row: 1;
+}
+
+.gs .btn {
+  margin-block: var(--space-2, 0.75rem) var(--space-3, 1rem);
+}
+
+.gs .callout {
+  border-left: 0.25rem solid var(--amber, #b7791f);
+  padding-inline-start: var(--space-3, 1rem);
+}
+
+.gs .code {
+  margin-block: var(--space-3, 1rem);
+  max-width: 100%;
+}
+
+.gs .code pre {
+  overflow-x: auto;
+}
+
+.gs .tshoot {
+  margin: 0;
+}
+
+.gs .tshoot dt {
+  color: var(--text, #111827);
+  font-weight: 700;
+  margin-block-start: var(--space-4, 1.5rem);
+}
+
+.gs .tshoot dd {
+  margin: var(--space-1, 0.5rem) 0 0;
+}
+
+.gs .next-steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3, 1rem);
+  margin-block-start: var(--space-7, 3rem);
+}
+
+.gs .next-steps h2 {
+  flex-basis: 100%;
+  margin-block-end: 0;
+}
+
+@media (min-width: 720px) {
+  .gs .gs-prereq {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
