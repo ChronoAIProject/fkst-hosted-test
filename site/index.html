@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>fkst | File an issue. Get a pull request.</title>
+    <meta name="description" content="fkst is an autonomous software-engineering platform that turns GitHub issues into pull requests using isolated, self-hosted agents.">
+    <meta property="og:title" content="fkst | File an issue. Get a pull request.">
+    <meta property="og:description" content="Install the GitHub App, file an issue, and let isolated agents write pull requests from your backlog.">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/layout.js" defer></script>
+  </head>
+  <body data-nav="home">
+    <div id="site-header"></div>
+    <main id="main">
+      <section id="hero" class="home-section" aria-labelledby="hero-h">
+        <div class="home-hero__content">
+          <p class="eyebrow">Autonomous software engineering</p>
+          <h1 id="hero-h">File an issue. Get a pull request.</h1>
+          <p class="home-hero__subhead">fkst is an autonomous software-engineering platform. Install the GitHub App on a repository, and every issue you open is claimed by an isolated agent that writes the code with an LLM and opens a pull request — concurrent, sandboxed, and self-hosted.</p>
+          <div class="home-hero__actions">
+            <a class="btn btn-primary btn-lg" href="getting-started.html">Get started</a>
+            <a class="btn btn-secondary btn-lg" href="https://github.com/ChronoAIProject/fkst-hosted" rel="noopener">View on GitHub</a>
+            <a class="home-hero__cue" href="#how">See how it works</a>
+          </div>
+        </div>
+        <svg class="home-hero__art" viewBox="0 0 620 360" role="img" aria-hidden="true" focusable="false">
+          <defs>
+            <marker id="home-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z"></path>
+            </marker>
+          </defs>
+          <rect class="home-hero__panel" x="24" y="34" width="572" height="292" rx="28"></rect>
+          <path class="home-hero__flow" d="M146 180 H256 M366 180 H476" marker-end="url(#home-arrow)"></path>
+          <path class="home-hero__flow" d="M311 124 V90 Q311 70 331 70 H414 Q434 70 434 90 V122" marker-end="url(#home-arrow)"></path>
+          <g class="home-hero__chip">
+            <rect x="62" y="134" width="126" height="92" rx="18"></rect>
+            <text x="125" y="186" text-anchor="middle">issue</text>
+          </g>
+          <g class="home-hero__chip">
+            <rect x="247" y="134" width="126" height="92" rx="18"></rect>
+            <text x="310" y="186" text-anchor="middle">pod</text>
+          </g>
+          <g class="home-hero__chip">
+            <rect x="340" y="34" width="126" height="92" rx="18"></rect>
+            <text x="403" y="86" text-anchor="middle">LLM</text>
+          </g>
+          <g class="home-hero__chip">
+            <rect x="432" y="134" width="126" height="92" rx="18"></rect>
+            <text x="495" y="186" text-anchor="middle">PR</text>
+          </g>
+        </svg>
+      </section>
+
+      <section id="about" class="home-section" aria-labelledby="about-h">
+        <p class="eyebrow">What is fkst</p>
+        <h2 id="about-h">An engine that writes code from your backlog.</h2>
+        <div class="home-about__copy">
+          <p>fkst pairs the fkst-substrate engine — an event-driven loop that runs packaged 'departments' of work — with a cloud control plane deployed on Kubernetes. Install the GitHub App on a repository and fkst treats that repo's issues as a work queue.</p>
+          <p>Each open issue is claimed by exactly one isolated agent. It reads the issue, plans and writes the change with an LLM coding agent, and opens a pull request for review. GitHub is the only durable state — issues are the queue, labels are the claims, and pull requests are the output.</p>
+        </div>
+        <p class="home-about__strip mono">issue → isolated pod → LLM writes code → pull request</p>
+      </section>
+
+      <section id="features" class="home-section" aria-labelledby="features-h">
+        <p class="eyebrow">Platform capabilities</p>
+        <h2 id="features-h">Built for autonomous delivery.</h2>
+        <ul class="home-features">
+          <li class="home-card">
+            <h3>Isolated per-session pods</h3>
+            <p>Every session runs in its own hard-isolated Kubernetes pod. One issue, one sandbox — no shared filesystem, no shared credentials, no blast radius between agents.</p>
+          </li>
+          <li class="home-card">
+            <h3>Issue → PR automation</h3>
+            <p>The control plane reconciles your open trigger issues, spawns an agent, and turns the work into a pull request. Issues are the queue, labels are the claim, PRs are the output.</p>
+          </li>
+          <li class="home-card">
+            <h3>Concurrent sandboxed agents</h3>
+            <p>Run many agents at once. Each claims a distinct issue via a label, works in parallel, and never touches another session's state.</p>
+          </li>
+          <li class="home-card">
+            <h3>Self-hosted control plane</h3>
+            <p>A Rust/Axum service on your own Kubernetes. It spawns and reaps pods, rotates each pod's GitHub token, and exposes a named-environments API. Your code and secrets stay in your cluster.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section id="how" class="home-section" aria-labelledby="how-h">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-h">From issue to PR in three steps.</h2>
+        <ol class="home-steps">
+          <li>
+            <span class="home-step__num" aria-hidden="true">01</span>
+            <h3>Open a trigger issue</h3>
+            <p>Install the fkst GitHub App on your repo and open the trigger issue. The control plane starts watching that repository and reconciling its open issues.</p>
+          </li>
+          <li>
+            <span class="home-step__num" aria-hidden="true">02</span>
+            <h3>File your work issues</h3>
+            <p>Describe what you want as ordinary GitHub issues. Each one enters the queue and is claimed by a fresh, isolated agent in its own pod.</p>
+          </li>
+          <li>
+            <span class="home-step__num" aria-hidden="true">03</span>
+            <h3>Review the pull requests</h3>
+            <p>The agent writes the code with an LLM and opens a pull request. You review and merge — the same flow your team already uses.</p>
+          </li>
+        </ol>
+      </section>
+
+      <section id="cta" class="home-section" aria-labelledby="cta-h">
+        <h2 id="cta-h">Stop triaging. Start shipping.</h2>
+        <p>Install the fkst GitHub App, open your first issue, and watch the pull requests roll in.</p>
+        <div class="home-cta__actions">
+          <!-- TODO confirm real GitHub App slug -->
+          <a class="btn btn-primary btn-lg" href="https://github.com/apps/fkst" rel="noopener">Install the GitHub App</a>
+          <a class="btn btn-secondary btn-lg" href="getting-started.html">Read the docs</a>
+        </div>
+      </section>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>
