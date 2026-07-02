@@ -1,0 +1,257 @@
+.page-architecture .arch-hero {
+  padding-block: clamp(3rem, 8vw, 6rem) clamp(2rem, 5vw, 4rem);
+}
+
+.page-architecture .arch-eyebrow {
+  color: var(--amber, #f59e0b);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 0 0 0.75rem;
+  text-transform: uppercase;
+}
+
+.page-architecture .arch-hero h1 {
+  color: var(--fg, #f8fafc);
+  font-size: clamp(2.25rem, 3.8rem, 4.5rem);
+  line-height: 1.02;
+  margin: 0;
+  max-width: 13ch;
+}
+
+.page-architecture .arch-lede {
+  color: var(--dim, #94a3b8);
+  font-size: clamp(1.05rem, 1.25rem, 1.3rem);
+  line-height: 1.65;
+  margin: 1.5rem 0 0;
+  max-width: 76ch;
+}
+
+.page-architecture .arch-section,
+.page-architecture .arch-related {
+  padding-block: clamp(2rem, 5vw, 4rem);
+}
+
+.page-architecture .arch-section h2 {
+  color: var(--fg, #f8fafc);
+  font-size: clamp(1.65rem, 2.4rem, 2.75rem);
+  line-height: 1.12;
+  margin: 0 0 1rem;
+}
+
+.page-architecture .arch-section > p {
+  color: var(--dim, #94a3b8);
+  line-height: 1.7;
+  margin: 0 0 1.5rem;
+  max-width: 72ch;
+}
+
+.page-architecture .arch-planes {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+}
+
+.page-architecture .arch-plane {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.page-architecture .arch-plane h3 {
+  color: var(--fg, #f8fafc);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.page-architecture .arch-role {
+  color: var(--amber, #f59e0b);
+  font-weight: 700;
+  margin: 0;
+}
+
+.page-architecture .arch-plane p:not(.arch-role) {
+  color: var(--dim, #94a3b8);
+  line-height: 1.65;
+  margin: 0;
+}
+
+.page-architecture .arch-diagram {
+  background: var(--raise, #111827);
+  border: 1px solid var(--line, #334155);
+  border-radius: 8px;
+  margin: 1.5rem auto 0;
+  max-width: 100%;
+  overflow-x: auto;
+  padding: clamp(0.75rem, 2vw, 1.25rem);
+}
+
+.page-architecture .arch-diagram svg {
+  display: block;
+  min-width: 640px;
+}
+
+.page-architecture .arch-diagram figcaption {
+  color: var(--dim, #94a3b8);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  margin: 0.85rem 0 0;
+}
+
+.page-architecture .arch-node {
+  fill: var(--raise, #111827);
+  stroke: var(--line-2, #475569);
+  stroke-width: 2;
+}
+
+.page-architecture .arch-node--pod {
+  stroke: var(--amber, #f59e0b);
+  stroke-width: 3;
+}
+
+.page-architecture .arch-node--pr {
+  stroke: var(--green, #22c55e);
+  stroke-width: 3;
+}
+
+.page-architecture .arch-edge,
+.page-architecture .arch-edge-marker {
+  fill: var(--fg, #f8fafc);
+  stroke: var(--fg, #f8fafc);
+  stroke-width: 3;
+}
+
+.page-architecture .arch-edge--rotate {
+  fill: none;
+  stroke: var(--amber, #f59e0b);
+  stroke-dasharray: 9 8;
+}
+
+.page-architecture .arch-band {
+  fill: var(--bg, #020617);
+  stroke: var(--line, #334155);
+  stroke-width: 2;
+}
+
+.page-architecture .arch-caption {
+  fill: var(--dim, #94a3b8);
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.page-architecture .arch-connector {
+  fill: none;
+  stroke: var(--line-2, #475569);
+  stroke-dasharray: 5 7;
+  stroke-width: 2;
+}
+
+.page-architecture .arch-band-text,
+.page-architecture .arch-node-title {
+  fill: var(--fg, #f8fafc);
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.page-architecture .arch-band-subtext,
+.page-architecture .arch-node-subtitle {
+  fill: var(--dim, #94a3b8);
+  font-size: 15px;
+  font-weight: 650;
+}
+
+.page-architecture .arch-guards {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.page-architecture .arch-guards li {
+  background: var(--raise, #111827);
+  border: 1px solid var(--line, #334155);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.page-architecture .arch-guards strong,
+.page-architecture .arch-guards span {
+  display: block;
+}
+
+.page-architecture .arch-guards strong {
+  color: var(--fg, #f8fafc);
+  margin-bottom: 0.35rem;
+}
+
+.page-architecture .arch-guards span {
+  color: var(--dim, #94a3b8);
+  line-height: 1.55;
+}
+
+.page-architecture .arch-state {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  margin: 0;
+}
+
+.page-architecture .arch-state div {
+  background: var(--raise, #111827);
+  border: 1px solid var(--line, #334155);
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.page-architecture .arch-state dt {
+  color: var(--fg, #f8fafc);
+  font-weight: 800;
+  margin: 0 0 0.3rem;
+}
+
+.page-architecture .arch-state dd {
+  color: var(--dim, #94a3b8);
+  margin: 0;
+}
+
+.page-architecture .arch-steps {
+  color: var(--dim, #94a3b8);
+  display: grid;
+  gap: 0.8rem;
+  line-height: 1.65;
+  margin: 0;
+  padding-left: 1.4rem;
+}
+
+.page-architecture .arch-steps strong {
+  color: var(--fg, #f8fafc);
+}
+
+.page-architecture .arch-note {
+  background: color-mix(in srgb, var(--amber, #f59e0b) 14%, transparent);
+  border: 1px solid var(--amber, #f59e0b);
+  border-radius: 8px;
+  color: var(--fg, #f8fafc);
+  line-height: 1.6;
+  margin: 1.5rem 0 0;
+  max-width: 72ch;
+  padding: 1rem;
+}
+
+.page-architecture .arch-related .grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.page-architecture .arch-related-card {
+  color: var(--fg, #f8fafc);
+  display: block;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.page-architecture .arch-related-card:hover,
+.page-architecture .arch-related-card:focus {
+  border-color: var(--amber, #f59e0b);
+  color: var(--amber, #f59e0b);
+}
