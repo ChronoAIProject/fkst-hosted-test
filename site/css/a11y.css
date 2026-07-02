@@ -1,0 +1,69 @@
+/*
+  Cross-page accessibility checklist enforced by page-level work:
+  one <h1>; no skipped heading levels; <html lang="en">; <main id="main">;
+  decorative SVGs use aria-hidden and focusable=false; icon buttons are labelled;
+  AA contrast is maintained in both themes.
+*/
+
+.skip-link,
+.site-skip-link {
+  position: fixed;
+  inset-block-start: -100px;
+  inset-inline-start: 16px;
+  z-index: 1000;
+}
+
+.skip-link:focus,
+.site-skip-link:focus {
+  inset-block-start: 16px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--amber, #e6a94a);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+img,
+svg,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (max-width: 720px) {
+  .container,
+  .wrap {
+    padding-inline: 16px;
+  }
+}
+
+@media (pointer: coarse) {
+  a,
+  button,
+  .theme-toggle {
+    min-height: 44px;
+  }
+}
+
+@media (max-width: 480px) {
+  .theme-toggle {
+    width: 44px;
+    height: 44px;
+  }
+}
