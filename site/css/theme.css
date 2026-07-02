@@ -1,0 +1,61 @@
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f8fafc;
+  --raise: #ffffff;
+  --raise-2: #e8eef5;
+  --line: #cbd5e1;
+  --line-2: #94a3b8;
+  --fg: #111827;
+  --dim: #475569;
+  --faint: #64748b;
+  --ghost: rgba(17, 24, 39, 0.08);
+  --amber: #b45309;
+  --amber-ink: #ffffff;
+  --green: #047857;
+  --red: #b91c1c;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+.theme-toggle {
+  inline-size: 40px;
+  block-size: 40px;
+  display: inline-grid;
+  place-items: center;
+  padding: 0;
+  color: var(--fg);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: var(--raise-2);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.theme-toggle svg {
+  inline-size: 20px;
+  block-size: 20px;
+  pointer-events: none;
+}
+
+/* The visible icon previews the theme that clicking the button will switch to. */
+:root:not([data-theme="light"]) .theme-toggle .icon-moon,
+:root[data-theme="dark"] .theme-toggle .icon-moon,
+:root[data-theme="light"] .theme-toggle .icon-sun {
+  display: none;
+}
+
+:root:not([data-theme="light"]) .theme-toggle .icon-sun,
+:root[data-theme="dark"] .theme-toggle .icon-sun,
+:root[data-theme="light"] .theme-toggle .icon-moon {
+  display: inline-block;
+}
