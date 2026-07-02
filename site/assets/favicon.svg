@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="fkst">
+  <style>
+    .bg{fill:#e6a94a}
+    .fg{fill:#2a2115}
+    @media(prefers-color-scheme:dark){
+      .bg{fill:#e6a94a}
+      .fg{fill:#12141a}
+    }
+  </style>
+  <rect class="bg" x="2" y="2" width="60" height="60" rx="14"/>
+  <path class="fg" d="M18 46V18h18v7H26v6h9v7h-9v8H18Zm24 0V25h-8v-7h24v7h-8v21h-8Z"/>
+</svg>
