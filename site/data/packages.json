@@ -1,0 +1,108 @@
+{
+  "version": 1,
+  "domains": [
+    {
+      "id": "orchestration",
+      "label": "Orchestration"
+    },
+    {
+      "id": "ingestion",
+      "label": "Ingestion"
+    },
+    {
+      "id": "pipeline",
+      "label": "Pipeline"
+    },
+    {
+      "id": "coordination",
+      "label": "Coordination"
+    },
+    {
+      "id": "signals",
+      "label": "Signals"
+    },
+    {
+      "id": "quality",
+      "label": "Quality"
+    }
+  ],
+  "packages": [
+    {
+      "name": "github-devloop",
+      "domain": "orchestration",
+      "kind": "composed",
+      "purpose": "The end-to-end loop: claims an open GitHub issue and drives it through intake, code, and PR using the codex LLM agent.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop"
+    },
+    {
+      "name": "frontend-devloop",
+      "domain": "orchestration",
+      "kind": "composed",
+      "purpose": "A devloop tuned for frontend work — takes a UI issue from claim to a reviewed pull request.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/frontend-devloop"
+    },
+    {
+      "name": "github-proxy",
+      "domain": "ingestion",
+      "kind": "leaf",
+      "purpose": "Polls GitHub for new and updated issues and labels, emitting them as events the loop can claim.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-proxy"
+    },
+    {
+      "name": "consensus",
+      "domain": "coordination",
+      "kind": "leaf",
+      "purpose": "A multi-vote agreement gate: a decision only proceeds once enough independent voices concur.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/consensus"
+    },
+    {
+      "name": "github-devloop-intake",
+      "domain": "pipeline",
+      "kind": "leaf",
+      "purpose": "Reads a fresh issue, validates it, and shapes it into a well-formed work item for the loop.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop-intake"
+    },
+    {
+      "name": "github-devloop-decompose",
+      "domain": "pipeline",
+      "kind": "leaf",
+      "purpose": "Breaks a large issue into ordered, self-contained sub-tasks the agent implements one at a time.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop-decompose"
+    },
+    {
+      "name": "github-devloop-pr",
+      "domain": "pipeline",
+      "kind": "leaf",
+      "purpose": "Opens and updates the pull request — branch, commits, description, and the closing issue link.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop-pr"
+    },
+    {
+      "name": "github-devloop-integration",
+      "domain": "pipeline",
+      "kind": "leaf",
+      "purpose": "Watches CI and reconciles review state, merging once every required check is green.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop-integration"
+    },
+    {
+      "name": "github-devloop-ops",
+      "domain": "pipeline",
+      "kind": "leaf",
+      "purpose": "Runs the operational chores of a session — labels, comments, status, and cleanup on the issue.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/github-devloop-ops"
+    },
+    {
+      "name": "idle-detector",
+      "domain": "signals",
+      "kind": "leaf",
+      "purpose": "Notices when a session has gone quiet and signals the loop to wrap up or hand off.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/idle-detector"
+    },
+    {
+      "name": "integration-coverage-producer",
+      "domain": "quality",
+      "kind": "leaf",
+      "purpose": "Generates and reports test-coverage artifacts so integration gates have real numbers to judge.",
+      "repo": "https://github.com/ChronoAIProject/fkst-packages/tree/main/integration-coverage-producer"
+    }
+  ]
+}
