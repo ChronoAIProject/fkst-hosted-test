@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Packages | fkst</title>
+    <meta name="description" content="Browse the fkst package library by domain, purpose, and source.">
+    <meta property="og:title" content="Packages | fkst">
+    <meta property="og:description" content="Browse the fkst package library by domain, purpose, and source.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/packages.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+    <script src="js/theme.js" defer></script>
+    <script src="js/layout.js" defer></script>
+    <script src="js/packages.js" defer></script>
+  </head>
+  <body data-nav="packages">
+    <div id="site-header"></div>
+    <main class="wrap catalog" id="main">
+      <section class="catalog__hero" aria-labelledby="catalog-title">
+        <p class="eyebrow">Packages</p>
+        <h1 id="catalog-title">The package library</h1>
+        <p class="catalog__lede">
+          fkst packages are event-driven <strong>departments</strong> that run inside the substrate supervise loop. Each does a single job &mdash; poll GitHub, shape an issue, write code, open a PR, reconcile CI &mdash; and they <strong>compose</strong> into the end-to-end loop that turns a GitHub issue into a merged pull request.
+        </p>
+      </section>
+
+      <section class="catalog__bar" aria-label="Catalog controls">
+        <div class="catalog__filters" id="catalog-filters" role="group" aria-label="Filter packages by domain"></div>
+        <div class="catalog__search">
+          <label class="visually-hidden" for="catalog-search">Search packages</label>
+          <input id="catalog-search" type="search" name="search" placeholder="Search packages" autocomplete="off" aria-describedby="catalog-count">
+        </div>
+        <p class="catalog__count" id="catalog-count" role="status" aria-live="polite">Loading packages...</p>
+      </section>
+
+      <section class="catalog__grid" id="catalog-grid" aria-label="Packages"></section>
+      <p class="catalog__empty" id="catalog-empty" hidden>No packages match the current filters.</p>
+      <p class="catalog__error" id="catalog-error" role="alert" hidden>
+        Packages could not be loaded. Serve this site over HTTP, for example with <code>python3 -m http.server</code>, and reload the page.
+      </p>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>
