@@ -1,0 +1,71 @@
+.code {
+  position: relative;
+  background: var(--raise, #161b22);
+  border: 1px solid var(--line, #30363d);
+  border-radius: var(--radius, 12px);
+  margin: 18px 0;
+}
+
+.code pre {
+  margin: 0;
+  padding: 16px 18px;
+  overflow-x: auto;
+}
+
+.code code {
+  color: var(--fg, #f0f6fc);
+  font: 400 13px/1.6 var(--mono, ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace);
+  white-space: pre;
+}
+
+.code[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  max-width: calc(100% - 112px);
+  overflow: hidden;
+  color: var(--ghost, #8b949e);
+  font: 700 11px/1 var(--mono, ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace);
+  letter-spacing: 0;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.code[data-lang] pre {
+  padding-top: 30px;
+}
+
+.code__copy {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  min-height: 28px;
+  padding: 5px 10px;
+  border: 1px solid var(--line-2, var(--line, #30363d));
+  border-radius: var(--radius-sm, 8px);
+  background: var(--raise-2, #21262d);
+  color: var(--dim, #c9d1d9);
+  cursor: pointer;
+  font: 600 12px/1 var(--mono, ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace);
+}
+
+.code__copy:hover {
+  background: var(--raise-3, var(--raise, #161b22));
+  color: var(--fg, #f0f6fc);
+}
+
+.code__copy:focus-visible {
+  outline: 2px solid var(--amber, #f2cc60);
+  outline-offset: 2px;
+}
+
+.code__copy[data-state="copied"] {
+  border-color: color-mix(in oklab, var(--green, #3fb950) 45%, var(--line, #30363d));
+  color: var(--green, #3fb950);
+}
+
+.code__copy[data-state="error"] {
+  color: var(--red, #f85149);
+}
