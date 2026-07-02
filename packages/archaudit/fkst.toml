@@ -1,0 +1,12 @@
+kind = "package.composed"
+name = "archaudit"
+persistence_class = "composed_judgment_pipeline"
+
+[code]
+root = "."
+
+[lib_deps]
+libraries = ["contract", "workflow", "testkit", "forge"]
+
+[event_deps]
+packages = ["idle-detector", "github-proxy"]

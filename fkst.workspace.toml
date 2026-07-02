@@ -1,0 +1,9 @@
+[workspace]
+# The current engine consumes `units`; `packages` and `libraries` keep the
+# workspace split explicit for the library-dependency contract.
+units = ["packages/*", "libraries/*"]
+packages = ["packages/*"]
+libraries = ["libraries/*"]
+
+[registries]
+workspace = "workspace"
