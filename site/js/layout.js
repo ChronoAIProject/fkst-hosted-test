@@ -6,6 +6,7 @@
     'getting-started': true,
     architecture: true,
     packages: true,
+    faq: true,
     about: true
   };
   var mq = null;
