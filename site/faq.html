@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Frequently Asked Questions | fkst</title>
+    <meta
+      name="description"
+      content="Answers to common questions about starting fkst sessions, filing work issues, reviewing pull requests, viewing logs, and stopping sessions."
+    >
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/code.css">
+    <link rel="stylesheet" href="css/getting-started.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+    <script src="js/layout.js" defer></script>
+    <script src="js/theme.js" defer></script>
+    <script src="js/copy-code.js" defer></script>
+  </head>
+  <body data-nav="faq">
+    <div id="site-header"></div>
+    <main id="main" class="wrap gs">
+      <section class="gs-hero" aria-labelledby="faq-title">
+        <p class="eyebrow">FAQ</p>
+        <h1 id="faq-title">Frequently asked questions</h1>
+        <p class="lede">
+          Practical answers for setting up a fkst session, sending it work, finding the results, and
+          controlling the session lifecycle from GitHub.
+        </p>
+      </section>
+
+      <section aria-labelledby="session-basics-title">
+        <h2 id="session-basics-title">Session basics</h2>
+        <dl class="tshoot">
+          <dt>What is fkst?</dt>
+          <dd>
+            fkst is an autonomous coding platform. You describe work as GitHub issues, and an
+            agent implements each approved item as a pull request in the same repository.
+          </dd>
+
+          <dt>How do I start a session?</dt>
+          <dd>
+            Open a GitHub issue labelled <code>fkst-substrate-trigger</code>. In the issue body,
+            declare a <code>Session Name</code>, the <code>Packages</code> to run, and a
+            <code>Work Label</code> that will identify the issues this session should claim.
+          </dd>
+
+          <dt>How do I give a session work?</dt>
+          <dd>
+            Open normal GitHub issues that carry that session's <code>Work Label</code>. fkst
+            treats each labelled work issue as its own delivery item and works it through a
+            separate pull request.
+          </dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="results-title">
+        <h2 id="results-title">Results and logs</h2>
+        <dl class="tshoot">
+          <dt>Where do the results appear?</dt>
+          <dd>
+            Results appear as pull requests on the repository. Depending on the session and
+            repository configuration, those pull requests may be reviewed manually or auto-merged,
+            and they close the linked work issue when the delivery is complete.
+          </dd>
+
+          <dt>How do I see a session's logs?</dt>
+          <dd>
+            Every session streams redacted logs. The session's registration comment links to a
+            secure, access-controlled download so authorized users can inspect the run without
+            exposing secrets in public issue text.
+          </dd>
+        </dl>
+      </section>
+
+      <section aria-labelledby="lifecycle-title">
+        <h2 id="lifecycle-title">Session lifecycle</h2>
+        <dl class="tshoot">
+          <dt>How do I stop a session?</dt>
+          <dd>
+            Close the trigger issue to stop the session permanently. If you only want the session
+            to go idle, close or finish all open work issues carrying its <code>Work Label</code>.
+          </dd>
+        </dl>
+      </section>
+
+      <nav class="next-steps" aria-labelledby="next-steps-title">
+        <h2 id="next-steps-title">Next steps</h2>
+        <a href="getting-started.html">Start a session</a>
+        <a href="packages.html">Browse packages</a>
+        <a href="architecture.html">Read the architecture</a>
+      </nav>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>
