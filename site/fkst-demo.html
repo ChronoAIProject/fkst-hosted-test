@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>fkst demo | fkst</title>
+    <meta
+      name="description"
+      content="A focused walkthrough of how fkst turns GitHub issues into isolated agent sessions and pull requests."
+    >
+    <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/layout.css">
+    <link rel="stylesheet" href="css/code.css">
+    <link rel="stylesheet" href="css/getting-started.css">
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/a11y.css">
+    <script src="js/layout.js" defer></script>
+    <script src="js/theme.js" defer></script>
+  </head>
+  <body data-nav="fkst-demo">
+    <div id="site-header"></div>
+    <main id="main" class="wrap gs">
+      <section class="gs-hero" aria-labelledby="fkst-demo-title">
+        <p class="eyebrow">fkst demo</p>
+        <h1 id="fkst-demo-title">Watch a GitHub issue become a pull request</h1>
+        <p class="lede">
+          fkst treats GitHub as the control surface for autonomous software engineering. You file
+          an issue, an isolated session claims the work, an LLM agent writes the code, and the
+          result comes back as a pull request for the repository.
+        </p>
+      </section>
+
+      <section aria-labelledby="workflow-title">
+        <h2 id="workflow-title">The delivery loop</h2>
+        <p>
+          The basic fkst path is intentionally small: GitHub issues are the queue, labels are the
+          claims, and pull requests are the output. A repository with the fkst GitHub App installed
+          can use normal issues to describe work, then let a session run that work in an isolated
+          pod.
+        </p>
+        <ol class="steps">
+          <li>
+            <h3>File a work issue</h3>
+            <p>
+              Describe the change in GitHub using the same level of detail you would give a human
+              teammate. The issue carries the work label for the session that should claim it.
+            </p>
+          </li>
+          <li>
+            <h3>Let the session claim it</h3>
+            <p>
+              fkst runs a session from a trigger issue. The session watches for open issues with
+              its work label and claims each delivery item so one isolated agent owns the task.
+            </p>
+          </li>
+          <li>
+            <h3>Review the pull request</h3>
+            <p>
+              The agent works in its sandbox, writes the change with an LLM coding agent, and opens
+              a pull request. The repository owner keeps the normal review and merge step.
+            </p>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="control-surface-title">
+        <h2 id="control-surface-title">Issue-driven control</h2>
+        <p>
+          A fkst session starts from a trigger issue labelled <code>fkst-substrate-trigger</code>.
+          That trigger issue names the packages to run, the session name, and the work label that
+          identifies claimable issues. Keeping the control surface in GitHub makes queue state,
+          ownership, and results visible where the team already works.
+        </p>
+      </section>
+
+      <section aria-labelledby="sessions-title">
+        <h2 id="sessions-title">Sessions and work labels</h2>
+        <p>
+          A session is the running unit of delivery. It can stay active while labelled work remains,
+          then idle when the queue is empty. Work labels let different sessions focus on different
+          sets of issues, and each claimed item is handled by an isolated agent rather than shared
+          process state.
+        </p>
+      </section>
+
+      <section aria-labelledby="merge-title">
+        <h2 id="merge-title">Pull requests and merge policy</h2>
+        <p>
+          fkst returns completed work as pull requests. Depending on repository and session
+          configuration, those pull requests can be reviewed manually or handled by an auto-merge
+          flow. In either case, GitHub remains the durable record of the change and the issue it
+          closes.
+        </p>
+      </section>
+
+      <nav class="next-steps" aria-labelledby="next-steps-title">
+        <h2 id="next-steps-title">Next steps</h2>
+        <a href="getting-started.html">Start a session</a>
+        <a href="faq.html">Read the FAQ</a>
+        <a href="architecture.html">Read the architecture</a>
+      </nav>
+    </main>
+    <div id="site-footer"></div>
+  </body>
+</html>

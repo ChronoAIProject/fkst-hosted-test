@@ -7,6 +7,7 @@
     architecture: true,
     packages: true,
     faq: true,
+    'fkst-demo': true,
     about: true
   };
   var mq = null;
