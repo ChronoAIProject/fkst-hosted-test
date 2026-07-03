@@ -1,0 +1,4 @@
+# issue|artifact|expected_line
+65|LOGSTREAM.md|Disposable logstream E2E marker waived as a harness-owned test artifact.
+68|LOGSTREAM2.md|Disposable logstream E2E marker 2 waived as a harness-owned test artifact.
+71||Harness-covered logstream E2E item; no standalone LOGSTREAM3.md artifact.
